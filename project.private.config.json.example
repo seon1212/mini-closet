@@ -1,0 +1,7 @@
+{
+  "projectname": "smart-capsule-wardrobe",
+  "setting": {
+    "compileType": "miniprogram",
+    "urlCheck": false
+  }
+}

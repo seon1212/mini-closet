@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["wechat-miniprogram"]
+  },
+  "include": ["app.ts", "pages/**/*.ts", "services/**/*.ts", "utils/**/*.ts", "types/**/*.d.ts"]
+}

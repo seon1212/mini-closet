@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>智能胶囊衣橱小程序开发计划</title>
+  <style>
+    :root { --ink:#1f2937; --muted:#64748b; --line:#e2e8f0; --brand:#2563eb; --soft:#eff6ff; --todo:#fff7ed; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f8fafc; color:var(--ink); font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+    main { max-width:1000px; margin:0 auto; padding:40px 24px 80px; background:#fff; min-height:100vh; }
+    h1 { margin:0 0 8px; font-size:32px; line-height:1.25; }
+    h2 { margin-top:40px; padding-bottom:8px; border-bottom:2px solid var(--line); font-size:23px; }
+    h3 { margin-top:26px; font-size:18px; }
+    p, li { max-width:900px; }
+    .meta { color:var(--muted); margin-bottom:28px; }
+    .callout { padding:16px 18px; background:var(--soft); border-left:4px solid var(--brand); border-radius:6px; margin:18px 0; }
+    .todo { background:var(--todo); border-left-color:#f97316; }
+    table { width:100%; border-collapse:collapse; margin:14px 0 24px; }
+    th, td { border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; }
+    th { background:#f1f5f9; }
+    code { background:#f1f5f9; padding:2px 5px; border-radius:4px; }
+    pre { background:#0f172a; color:#e2e8f0; padding:16px; border-radius:8px; overflow:auto; }
+    .tag { display:inline-block; padding:3px 8px; border-radius:999px; background:#dbeafe; color:#1d4ed8; font-size:13px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>智能胶囊衣橱小程序开发计划</h1>
+  <div class="meta">版本：V1.0　|　微信小程序试用版　|　微信原生 + CloudBase 免费体验版 + DeepSeek 文本 API</div>
+
+  <div class="callout"><strong>当前结论：</strong>照片上传后生成透明底衣物图，原图保留；用户填写基础标签，DeepSeek 负责标签整理、搭配排序、解释和反馈分析。暂不做图片视觉识别、换季提醒和系统级通知。</div>
+
+  <h2>1. 产品边界</h2>
+  <h3>首版包含</h3>
+  <ol>
+    <li>拍照或从相册选择衣服照片。</li><li>上传后自动生成透明底衣物展示图，原图保留。</li><li>照片上传到云端私密存储。</li>
+    <li>用户填写基础标签，DeepSeek 整理标签和关键词。</li>
+    <li>浏览个人衣橱，按类别、颜色、风格和季节筛选，并可多选衣物加入搭配工作台。</li>
+    <li>在同一搭配工作台手动组合，或固定已选衣物让 AI 补齐；也可直接输入心情、风格、场合和关键词让 AI 推荐。</li>
+    <li>记录穿着与喜欢、不喜欢、不舒服、难搭配等反馈。</li>
+    <li>进入小程序时显示低频使用或难搭配提示。</li>
+    <li>支持删除衣服、照片和个人数据。</li>
+  </ol>
+  <h3>首版暂不包含</h3>
+  <ul><li>图片视觉识别衣物标签</li><li>换季提醒</li><li>系统级推送</li><li>虚拟试穿和人体建模</li><li>社交分享和商城</li></ul>
+
+  <h2>2. 技术方案</h2>
+  <ul>
+    <li><strong>前端：</strong>微信小程序原生、TypeScript、WXML、WXSS、微信开发者工具。</li>
+    <li><strong>云端：</strong>CloudBase 云数据库、云存储、云函数。</li>
+    <li><strong>AI：</strong>DeepSeek 文本 API；API Key 只放在云函数环境变量。</li>
+    <li><strong>推荐：</strong>规则过滤 → 标签匹配 → DeepSeek 排序和解释 → 用户反馈回写。</li>
+  </ul>
+  <h3>共用搭配工作台</h3>
+  <p>衣橱筛选后多选衣物，进入搭配工作台；手动补齐或点击“AI 帮我搭配”。首页的 AI 入口也进入同一页面。已选衣物固定，AI 只能补齐，不会暗中替换。更改衣橱筛选条件不会清空已选衣物。手动搭配不调用 AI；AI 建议可手动替换后保存。</p>
+  <div class="callout todo"><strong>安全要求：</strong>API Key 不能出现在小程序前端、公开仓库或聊天中。小程序只能调用云函数。</div>
+  <h3>模型接口适配层</h3>
+  <p>后台使用统一的 OpenAI 兼容调用层，但前端只调用 <code>normalizeTags</code>、<code>generateOutfits</code> 等业务云函数。服务商通过 <code>AI_PROVIDER</code>、<code>AI_BASE_URL</code>、<code>AI_MODEL</code>、<code>AI_API_KEY</code> 等环境变量切换。</p>
+  <h3>自动抠图</h3>
+  <p>衣物按商品主体处理：原图上传并保存后，提交商品抠图任务，生成透明底图；抠图失败时展示原图，不阻塞入库。</p>
+
+  <h2>3. 页面规划</h2>
+  <table><thead><tr><th>页面</th><th>主要内容</th></tr></thead><tbody>
+    <tr><td>首页</td><td>今日推荐、最近穿着、低频衣物提示</td></tr>
+    <tr><td>衣橱</td><td>衣物网格、筛选、搜索、分类浏览、多选加入搭配</td></tr>
+    <tr><td>新增衣物</td><td>拍照/选图、填写标签、提交 AI 整理</td></tr>
+    <tr><td>衣物详情</td><td>图片、标签、编辑、删除、穿着记录</td></tr>
+    <tr><td>搭配工作台</td><td>手动组合、固定已选衣物、偏好输入、AI 补齐、替换和保存</td></tr>
+    <tr><td>搭配详情</td><td>单品组合、搭配理由、反馈按钮</td></tr>
+    <tr><td>设置</td><td>隐私说明、数据删除、用量提示入口</td></tr>
+  </tbody></table>
+
+  <h2>4. 数据结构</h2>
+  <h3><code>clothes</code> 衣物</h3>
+  <p><code>id</code>、<code>userId</code>、<code>imageFileId</code>、<code>category</code>、<code>color</code>、<code>season</code>、<code>style</code>、<code>fit</code>、<code>material</code>、<code>warmth</code>、<code>formality</code>、<code>occasion</code>、<code>keywords</code>、<code>aiTags</code>、<code>userTags</code>、时间字段、状态。</p>
+  <h3><code>outfits</code> 搭配</h3>
+  <p><code>id</code>、<code>userId</code>、衣物 ID 列表、来源（手动或 AI）、固定衣物 ID 列表、心情、风格、场合、关键词、评分、解释、创建时间。</p>
+  <h3><code>wear_logs</code> 穿着记录</h3>
+  <p><code>id</code>、<code>userId</code>、搭配 ID、衣物 ID 列表、反馈、备注、穿着时间。</p>
+
+  <h2>5. 云函数规划</h2>
+  <table><thead><tr><th>云函数</th><th>作用</th></tr></thead><tbody>
+    <tr><td><code>createClothing</code></td><td>创建衣物记录并保存图片引用</td></tr>
+    <tr><td><code>mattingClothingImage</code></td><td>调用商品抠图并保存透明底图引用</td></tr>
+    <tr><td><code>normalizeTags</code></td><td>调用 DeepSeek 整理用户填写的标签</td></tr>
+    <tr><td><code>generateOutfits</code></td><td>根据衣橱标签和固定衣物生成搭配候选</td></tr>
+    <tr><td><code>aiChat</code></td><td>统一的 OpenAI 兼容 Provider 调用层，不直接暴露给前端</td></tr>
+    <tr><td><code>saveOutfitFeedback</code></td><td>保存搭配反馈</td></tr>
+    <tr><td><code>createWearLog</code></td><td>保存穿着记录</td></tr>
+    <tr><td><code>getWardrobeInsights</code></td><td>计算低频使用和难搭配提示</td></tr>
+    <tr><td><code>deleteUserData</code></td><td>删除用户照片、衣物、搭配和记录</td></tr>
+  </tbody></table>
+
+  <h2>6. 开发阶段</h2>
+  <h3>阶段 0：产品确认</h3><p>固定页面、标签字典、搭配输入项、反馈选项、低频规则、隐私和删除规则。交付产品规则表、标签字典和验收标准。</p>
+  <h3>阶段 1：账号、云环境和基础框架</h3><p>创建小程序、CloudBase 环境、数据库、存储和云函数，配置身份和权限，设置 API Key 环境变量。交付可运行骨架和部署说明。</p>
+  <h3>阶段 2：衣橱入库</h3><p>完成拍照/选图、压缩上传、商品自动抠图、标签表单、DeepSeek 整理、确认修改、列表、详情、编辑和删除。抠图失败时回退原图。</p>
+  <h3>阶段 2.5：模型适配层和图片处理</h3><p>建立统一的 OpenAI 兼容请求格式，实现 DeepSeek Provider，接入商品抠图，并增加超时、重试、降级和调用日志。</p>
+  <h3>阶段 3：搭配推荐</h3><p>完成衣橱多选进入工作台、手动添加/移除/替换/保存、心情和风格等偏好输入、固定单品后 AI 补齐、规则筛选、DeepSeek 排序与解释，展示 3 套搭配并保存反馈。</p>
+  <h3>阶段 4：穿着记录和整理建议</h3><p>完成穿着记录、反馈、低频规则、难搭配规则以及进入小程序时的提示。</p>
+  <h3>阶段 5：内测和上线准备</h3><p>完成真机、异常网络、权限、隐私、删除、AI 异常、用量监控、备份和审核材料检查。</p>
+  <h3>阶段 6：交付和接入试用</h3><p>交付源码、CloudBase 环境 ID、云函数部署说明、数据库权限规则、环境变量清单、DeepSeek 配置说明、预览和上传步骤。</p>
+
+  <h2>7. 你的待办事项</h2>
+  <div class="callout todo"><strong>以下事项需要你完成：</strong></div>
+  <ul>
+    <li>确定小程序名称、Logo/头像和简介。</li>
+    <li>注册或确认微信小程序账号、AppID 和主体类型。</li>
+    <li>确认 CloudBase 账号和费用支付方式。</li>
+    <li>确认 DeepSeek API Key 对应的模型名称和 API 地址；不要提供 Key 本身。</li>
+    <li>提供 10～20 件真实衣服的示例标签。</li>
+    <li>确定类别清单、风格分类、低频使用天数和“难搭配”判断规则。</li>
+    <li>确认照片与个人数据的保存、删除和隐私说明。</li>
+    <li>准备至少 20 组合理搭配作为验收样本。</li>
+    <li>确定首轮内测人数和反馈方式。</li>
+    <li>确认是否接受“原图 + 透明底图”双份保存；如只保存透明底图，原图删除后无法重新抠图。</li>
+    <li>确认抠图风格：透明底、白底或浅灰底，默认建议透明底。</li>
+    <li>提供 5～10 张不同背景、不同角度的衣物照片作为抠图验收样本。</li>
+    <li>确认第一版使用腾讯云商品抠图，或暂时只做图片裁剪和留白。</li>
+    <li>确认 DeepSeek API 的模型名、Base URL 和云函数访问可用性；不要提供 API Key 本身。</li>
+    <li>准备微信小程序 AppID，并在开发结束时完成开发者、体验成员和隐私配置。</li>
+  </ul>
+
+  <h2>8. 首版验收标准</h2>
+  <ul>
+    <li>1 分钟内完成一件衣服入库，并可修改 AI 整理标签。</li>
+    <li>用户只能看到自己的衣物和穿着记录。</li>
+    <li>衣橱筛选后可多选衣物进入搭配工作台；更改筛选条件不清空已选衣物。</li>
+    <li>同一工作台支持手动和 AI 搭配；AI 不替换固定单品。</li>
+    <li>手动保存不调用 AI，AI 结果可手动替换后保存。</li>
+    <li>搭配请求返回 1～3 套有解释的搭配。</li>
+    <li>衣物不足、AI 超时或异常时有明确提示和重试入口。</li>
+    <li>可以删除衣物及其图片。</li>
+    <li>进入小程序时可以看到低频或难搭配提示。</li>
+    <li>上传成功后可以生成透明底衣物图；抠图失败时仍可正常入库并展示原图。</li>
+    <li>更换 Provider 配置后，衣物标签和搭配业务页面无需修改。</li>
+    <li>不发送系统级提醒，不包含换季提醒。</li>
+  </ul>
+
+  <h2>9. 主要风险</h2>
+  <table><thead><tr><th>风险</th><th>应对</th></tr></thead><tbody>
+    <tr><td>用户不愿填写标签</td><td>使用按钮化选项，减少自由输入</td></tr>
+    <tr><td>推荐不能实际穿</td><td>先规则过滤，再让 AI 排序</td></tr>
+    <tr><td>AI 输出格式不稳定</td><td>结构化输出、校验和默认兜底</td></tr>
+    <tr><td>API Key 泄露</td><td>只放云函数环境变量，设置用量上限</td></tr>
+    <tr><td>云函数无法稳定访问 API</td><td>开发早期先做网络连通性测试</td></tr>
+    <tr><td>低频判断不准确</td><td>只做提示，不自动删除或强制断舍离</td></tr>
+    <tr><td>抠图误删衣物边缘</td><td>原图保留、透明底图可重做、失败回退原图</td></tr>
+    <tr><td>AI 服务更换成本高</td><td>统一 Provider 适配层，业务云函数不直接绑定供应商</td></tr>
+  </tbody></table>
+
+  <h2>10. 前端视觉方向</h2>
+  <p>采用“苹果式极简视觉 + 微信小程序交互规范”：大留白、低饱和中性色、少量强调色、8pt 间距体系、约 16px 卡片圆角、系统字体和大图。首页突出“今日搭配”和“添加衣物”两个主动作，Tab 控制在 3～4 项，保留微信导航和返回习惯。不仿制 iOS 系统弹窗或微信界面，用 <a href="https://weui.io/">WeUI 官方组件库</a> 作为控件和交互参考。</p>
+
+  <h2>11. 开发结束后的微信试用接入</h2>
+  <h3>你需要准备</h3>
+  <ol><li>微信小程序 AppID。</li><li>微信开发者工具。</li><li>CloudBase 账号和环境。</li><li>DeepSeek API Key，仅在云函数环境变量中配置。</li><li>隐私说明、相机和相册权限说明。</li></ol>
+  <h3>接入步骤</h3>
+  <ol>
+    <li>在微信开发者工具导入项目并填入 AppID。</li>
+    <li>填入 CloudBase 环境 ID。</li>
+    <li>部署云函数、数据库权限规则和云存储规则。</li>
+    <li>在云函数环境变量配置 <code>AI_PROVIDER</code>、<code>AI_BASE_URL</code>、<code>AI_MODEL</code>、<code>AI_API_KEY</code>。</li>
+    <li>如启用抠图，配置数据万象服务、存储桶和商品抠图权限。</li>
+    <li>在模拟器和真机测试拍照、上传、抠图、标签和搭配流程。</li>
+    <li>使用“预览”生成二维码，在手机微信中试用。</li>
+    <li>将测试人员加入开发者或体验成员名单，进行小范围内测。</li>
+    <li>稳定后上传版本，按微信公众平台要求提交审核。</li>
+  </ol>
+
+  <h2>12. 后续升级</h2>
+  <p>首版有稳定使用数据后，再考虑视觉模型自动识别、天气关联搭配、个人风格画像、App/离线衣橱、换季提醒和系统通知。</p>
+</main>
+</body>
+</html>

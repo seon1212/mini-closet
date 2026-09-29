@@ -1,0 +1,8 @@
+.settings-list { margin-top:44rpx; padding:0 28rpx; }
+.setting { min-height:112rpx; border-bottom:1rpx solid #eee9e0; }
+.setting:last-child { border-bottom:0; }
+.setting-title { font-size:29rpx; }
+.setting .muted { display:block; margin-top:5rpx; font-size:23rpx; }
+.status-dot { color:#bcb5a9; font-size:24rpx; }.status-dot.online { color:#6f9b6e; }
+.arrow { color:#b0aaa0; font-size:40rpx; }
+.settings-note { margin-top:28rpx; padding:0 10rpx; color:#969087; line-height:1.7; font-size:23rpx; }

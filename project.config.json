@@ -1,0 +1,16 @@
+{
+  "description": "智能胶囊衣橱",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": false,
+    "compileHotReLoad": true,
+    "useCompilerPlugins": ["typescript"]
+  },
+  "simulatorType": "wechat",
+  "condition": {}
+}

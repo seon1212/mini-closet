@@ -1,0 +1,19 @@
+.add-button { width:72rpx; height:72rpx; padding:0; background:#20201e; color:#fff; border-radius:50%; font-size:42rpx; line-height:68rpx; }
+.filters { margin-top:36rpx; padding:4rpx 0 0; }
+.filter-scroll { white-space:nowrap; padding:0 20rpx; }
+.filter-item { display:inline-block; padding:22rpx 20rpx; color:#99938a; font-size:25rpx; }
+.filter-item.active { color:#20201e; font-weight:600; border-bottom:4rpx solid #20201e; }
+.filter-line { display:flex; gap:18rpx; border-top:1rpx solid #eee9e0; padding:22rpx; color:#777169; font-size:24rpx; }
+.filter-line picker { flex:1; }
+.selection-bar { display:flex; align-items:center; justify-content:space-between; margin:24rpx 0 4rpx; color:#6f6a61; font-size:25rpx; }
+.mini { padding:14rpx 24rpx; font-size:24rpx; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:22rpx; margin-top:24rpx; }
+.clothing-card { padding:14rpx; overflow:hidden; }
+.clothing-card.selected { border:3rpx solid #20201e; padding:12rpx; }
+.image-wrap { height:320rpx; position:relative; overflow:hidden; border-radius:20rpx; background:#eee9e0; }
+.image-wrap image { width:100%; height:100%; }
+.image-placeholder { height:100%; display:flex; align-items:center; justify-content:center; color:#a9a298; font-size:28rpx; }
+.check { position:absolute; top:14rpx; right:14rpx; width:46rpx; height:46rpx; border-radius:50%; background:#20201e; color:#fff; text-align:center; line-height:46rpx; }
+.clothing-name { display:block; margin:18rpx 8rpx 10rpx; font-size:27rpx; font-weight:600; }
+.clothing-card .tag { margin:0 4rpx 4rpx 8rpx; padding:5rpx 10rpx; font-size:20rpx; }
+.empty-button { margin-top:28rpx; display:inline-block; }

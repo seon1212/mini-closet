@@ -1,0 +1,4 @@
+{
+  "desc": "智能胶囊衣橱 sitemap",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

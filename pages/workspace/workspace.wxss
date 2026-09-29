@@ -1,0 +1,22 @@
+.compact { margin:0; font-size:29rpx; }
+.selected-strip { margin-top:38rpx; }
+.selected-scroll { white-space:nowrap; margin-top:18rpx; }
+.selected-item { display:inline-block; width:150rpx; margin-right:16rpx; vertical-align:top; color:#6f6a61; font-size:22rpx; white-space:normal; }
+.selected-image, .result-image { width:150rpx; height:170rpx; display:flex; align-items:center; justify-content:center; position:relative; border-radius:20rpx; overflow:hidden; background:#eae5dc; color:#99938a; }
+.selected-image image, .result-image image { width:100%; height:100%; }
+.remove { position:absolute; right:8rpx; top:8rpx; width:38rpx; height:38rpx; background:rgba(32,32,30,.8); border-radius:50%; color:white; text-align:center; line-height:36rpx; }
+.selected-item > text { display:block; margin-top:10rpx; }
+.preference { padding:28rpx; margin-top:36rpx; }
+.choice-label { margin:28rpx 0 14rpx; color:#777169; font-size:24rpx; }
+.choices { display:flex; flex-wrap:wrap; gap:12rpx; }
+.choice { padding:14rpx 22rpx; border:1rpx solid #ddd7cc; border-radius:999rpx; color:#6d685f; font-size:24rpx; }
+.choice.picked { background:#20201e; border-color:#20201e; color:white; }
+.keyword-input { margin-top:28rpx; padding:20rpx 0; border-bottom:1rpx solid #e4dfd6; color:#4c4842; }
+.actions { display:flex; gap:16rpx; margin-top:28rpx; }
+.actions button { flex:1; }
+.result { margin-top:36rpx; padding:28rpx; }
+.result-clothes { display:flex; gap:16rpx; margin-top:20rpx; overflow-x:auto; }
+.result-item { flex:0 0 150rpx; color:#6f6a61; font-size:22rpx; }
+.result-item > text { display:block; margin-top:10rpx; }
+.explanation { display:block; margin-top:24rpx; color:#6f6a61; line-height:1.7; }
+.result-actions { margin-bottom:0; }

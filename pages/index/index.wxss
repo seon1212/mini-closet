@@ -1,0 +1,16 @@
+.hero { margin-top: 48rpx; padding: 34rpx; background: #262622; color: #fffdf9; }
+.hero-label { display:block; color:#b8b3aa; font-size:24rpx; }
+.hero-title { display:block; margin-top:10rpx; font-size:42rpx; font-weight:600; }
+.hero-mark { color:#d6ae72; font-size:52rpx; }
+.hero-copy { display:block; margin:34rpx 0; color:#c8c2b8; line-height:1.7; }
+.hero .primary { background:#f4efe4; color:#24231f; }
+.small { font-size:23rpx; font-weight:400; }
+.insight-row { display:flex; gap:18rpx; }
+.insight { flex:1; padding:26rpx; }
+.insight-number { display:block; font-size:48rpx; font-weight:600; }
+.insight-label { display:block; margin-top:4rpx; color:#6c675f; font-size:24rpx; }
+.insight-link { display:block; margin-top:24rpx; color:#96704a; font-size:23rpx; }
+.quick { padding:24rpx; display:flex; align-items:center; gap:20rpx; }
+.quick-icon { width:72rpx; height:72rpx; border-radius:22rpx; background:#ece5d7; color:#96704a; text-align:center; line-height:68rpx; font-size:42rpx; }
+.quick-title { display:block; font-size:29rpx; font-weight:600; margin-bottom:5rpx; }
+.arrow { margin-left:auto; font-size:42rpx; color:#b3ada2; }

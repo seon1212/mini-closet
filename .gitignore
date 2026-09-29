@@ -1,0 +1,19 @@
+node_modules/
+miniprogram_npm/
+dist/
+.DS_Store
+*.log
+*.zip
+
+# Existing unrelated document in this workspace
+dgxspark-agent-sop.html
+
+# Machine-specific WeChat DevTools settings
+project.private.config.json
+
+# Local cloud configuration and secrets
+env.ts
+.env
+.env.*
+!.env.example
+cloudfunctions/**/.env

@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="eyebrow">SMART WARDROBE</view>
+  <text class="title">今天穿什么</text>
+  <text class="subtitle">让衣橱里的每一件，都有被穿上的机会。</text>
+
+  <view class="hero card">
+    <view class="row"><view><text class="hero-label">今日搭配</text><text class="hero-title">从心情开始</text></view><text class="hero-mark">✦</text></view>
+    <text class="hero-copy">告诉我今天的状态，我会从你的衣橱里找一套适合的组合。</text>
+    <button class="primary" bindtap="openWorkspace">AI 帮我搭配</button>
+  </view>
+
+  <view class="row section-title"><text>衣橱状态</text><text class="muted small">{{clothesCount}} 件衣服</text></view>
+  <view class="insight-row">
+    <view class="insight card" bindtap="openWardrobe"><text class="insight-number">{{rarelyWornCount}}</text><text class="insight-label">件很久没穿</text><text class="insight-link">去看看 ›</text></view>
+    <view class="insight card" bindtap="openWardrobe"><text class="insight-number">{{hardToMatchCount}}</text><text class="insight-label">件需要再搭配</text><text class="insight-link">去试试 ›</text></view>
+  </view>
+
+  <view class="section-title">快速开始</view>
+  <view class="quick card" bindtap="addClothing"><view class="quick-icon">＋</view><view><text class="quick-title">添加一件衣服</text><text class="muted">拍照或从相册选择，建立你的衣橱</text></view><text class="arrow">›</text></view>
+</view>

@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/wardrobe/wardrobe",
+    "pages/workspace/workspace",
+    "pages/add-clothing/add-clothing",
+    "pages/clothing-detail/clothing-detail",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarTitleText": "衣橱",
+    "navigationBarBackgroundColor": "#F7F5F0",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F5F0",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#8E8A83",
+    "selectedColor": "#20201E",
+    "backgroundColor": "#FCFBF8",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "今日" },
+      { "pagePath": "pages/wardrobe/wardrobe", "text": "衣橱" },
+      { "pagePath": "pages/workspace/workspace", "text": "搭配" },
+      { "pagePath": "pages/settings/settings", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
