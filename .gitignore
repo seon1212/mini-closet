@@ -5,6 +5,9 @@ dist/
 *.log
 *.zip
 
+# Unrelated local draft generated outside the smart wardrobe project
+draft_f374e161_folder/
+
 # Existing unrelated document in this workspace
 dgxspark-agent-sop.html
 
