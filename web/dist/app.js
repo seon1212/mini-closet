@@ -11,7 +11,15 @@ const seed = [
 ];
 
 let state = { clothes: [], selected: [], filters: {category:'',color:'',style:''}, previewImage: '' };
-function load(){ try { state.clothes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || structuredClone(seed); } catch { state.clothes = structuredClone(seed); } }
+function load(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const legacyDemoIds = ['white-shirt','denim-jeans','black-blazer','silk-dress','leather-loafers','scarf'];
+    const isLegacyDemo = Array.isArray(saved) && saved.length === legacyDemoIds.length && saved.every(item => legacyDemoIds.includes(item.id));
+    state.clothes = !saved || isLegacyDemo ? structuredClone(seed) : saved;
+    if (isLegacyDemo) save();
+  } catch { state.clothes = structuredClone(seed); }
+}
 function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state.clothes)); }
 function selectedClothes(){ return state.selected.map(id=>state.clothes.find(x=>x.id===id)).filter(Boolean); }
 function uniq(field){ return [...new Set(state.clothes.flatMap(x => Array.isArray(x[field]) ? x[field] : [x[field]]))]; }
