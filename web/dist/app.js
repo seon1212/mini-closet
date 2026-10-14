@@ -1,13 +1,13 @@
 const STORAGE_KEY = 'capsule-wardrobe-web-v1';
-const img = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=84`;
+const asset = (name) => `./assets/clothes/${name}.jpg`;
 
 const seed = [
-  {id:'white-shirt',name:'白色廓形衬衫',category:'上衣',color:'白色',style:['简约','通勤'],season:['春','夏','秋'],keywords:['基础款','利落','棉质'],worn:7,image:img('photo-1598032895397-b9472444bf93')},
-  {id:'denim-jeans',name:'直筒牛仔裤',category:'下装',color:'丹宁蓝',style:['休闲','极简'],season:['春','秋'],keywords:['舒适','日常','直筒'],worn:4,image:img('photo-1542272604-787c3835535d')},
-  {id:'black-blazer',name:'黑色羊毛西装外套',category:'外套',color:'黑色',style:['通勤','极简'],season:['秋','冬'],keywords:['挺括','正式','层次'],worn:2,image:img('photo-1591047139829-d91aecb6caea')},
-  {id:'silk-dress',name:'灰蓝缎面连衣裙',category:'连衣裙',color:'雾蓝',style:['优雅','轻法式'],season:['春','夏'],keywords:['约会','垂坠','质感'],worn:1,image:img('photo-1566174053879-31528523f8ae')},
-  {id:'leather-loafers',name:'深棕乐福鞋',category:'鞋子',color:'深棕',style:['复古','通勤'],season:['春','秋','冬'],keywords:['皮革','稳重','低跟'],worn:8,image:img('photo-1543163521-1bf539c55dd2')},
-  {id:'scarf',name:'燕麦色羊绒围巾',category:'配饰',color:'燕麦',style:['温柔','极简'],season:['秋','冬'],keywords:['保暖','柔软','点缀'],worn:0,image:img('photo-1520903920243-00d872a2d1c9')}
+  {id:'blue-shirt',name:'浅蓝衬衫与领带',category:'上衣',color:'浅蓝',style:['通勤','学院'],season:['春','秋'],keywords:['衬衫','领带','利落'],worn:7,image:asset('white-shirt')},
+  {id:'denim-jeans',name:'经典牛仔裤',category:'下装',color:'丹宁蓝',style:['休闲','极简'],season:['春','秋'],keywords:['牛仔','日常','直筒'],worn:4,image:asset('denim-jeans')},
+  {id:'brown-bomber',name:'焦糖色飞行夹克',category:'外套',color:'焦糖棕',style:['休闲','复古'],season:['春','秋'],keywords:['夹克','层次','轻外套'],worn:2,image:asset('black-blazer')},
+  {id:'evening-dress',name:'莓果色露肩礼服',category:'连衣裙',color:'莓果紫',style:['优雅','派对'],season:['春','夏'],keywords:['约会','礼服','质感'],worn:1,image:asset('satin-dress')},
+  {id:'floral-heels',name:'蓝色花卉高跟鞋',category:'鞋子',color:'天蓝',style:['复古','亮点'],season:['春','夏'],keywords:['花卉','高跟','点睛'],worn:8,image:asset('leather-loafers')},
+  {id:'check-scarf',name:'格纹围巾',category:'配饰',color:'深灰',style:['温柔','复古'],season:['秋','冬'],keywords:['围巾','保暖','格纹'],worn:0,image:asset('cashmere-scarf')}
 ];
 
 let state = { clothes: [], selected: [], filters: {category:'',color:'',style:''}, previewImage: '' };

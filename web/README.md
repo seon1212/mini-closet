@@ -20,3 +20,5 @@ python3 -m http.server 4173
 - 在浏览器中保留衣物与搭配数据
 
 此网页目前不调用 DeepSeek，也不会上传数据到 CloudBase。后续接入云端时，前端将改为调用与小程序一致的云函数。
+
+演示衣物图片已下载到 `dist/assets/clothes/`，图片来源说明见该目录的 `ATTRIBUTION.md`。
