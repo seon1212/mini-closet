@@ -26,6 +26,7 @@ cloudfunctions/**/.env
 !web/
 !web/dist/
 !web/dist/**
+web/dist/**/.DS_Store
 
 # Locally generated Sites deployment archive
 web/*.tar.gz
