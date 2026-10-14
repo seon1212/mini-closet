@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta name="description" content="智能胶囊衣橱网页体验版" />
+    <title>衣橱 Capsule</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="主导航">
+        <a class="brand" href="#home" aria-label="衣橱 Capsule 首页">
+          <span class="brand-mark">C</span>
+          <span>衣橱 <b>Capsule</b></span>
+        </a>
+        <nav class="nav-list">
+          <a class="nav-item active" href="#home" data-nav="home"><span>◌</span> 今天</a>
+          <a class="nav-item" href="#wardrobe" data-nav="wardrobe"><span>▦</span> 我的衣橱 <em id="nav-count">0</em></a>
+          <a class="nav-item" href="#studio" data-nav="studio"><span>✦</span> 搭配工作台</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <button class="text-button" id="reset-data" type="button">重置演示数据</button>
+          <p>数据仅保存在此浏览器</p>
+        </div>
+      </aside>
+
+      <main>
+        <header class="mobile-header">
+          <a class="brand" href="#home"><span class="brand-mark">C</span><span>衣橱 Capsule</span></a>
+          <button class="icon-button" id="mobile-add" type="button" aria-label="添加衣物">＋</button>
+        </header>
+
+        <section class="view active" id="home" data-view="home">
+          <div class="topbar">
+            <div>
+              <p class="eyebrow" id="today-date">TODAY</p>
+              <h1>穿得像你自己。</h1>
+            </div>
+            <button class="primary-button" type="button" data-open-add><span>＋</span> 添加衣物</button>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-copy">
+              <p class="eyebrow">TODAY'S CAPSULE</p>
+              <h2>给今天留一点<br />从容的余地。</h2>
+              <p>先选几件你想穿的衣服，再让搭配工作台帮你完成剩下的部分。</p>
+              <button class="dark-button" type="button" data-go="wardrobe">从衣橱开始 <span>→</span></button>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="sun"></div><div class="hanger h1"></div><div class="hanger h2"></div><div class="hanger h3"></div>
+            </div>
+          </div>
+
+          <div class="section-head"><div><p class="eyebrow">YOUR WARDROBE</p><h2>衣橱概览</h2></div><button class="text-button" type="button" data-go="wardrobe">查看全部 →</button></div>
+          <div class="stat-grid" id="stat-grid"></div>
+          <div class="section-head recent-head"><div><p class="eyebrow">RECENTLY ADDED</p><h2>最近入库</h2></div></div>
+          <div class="mini-grid" id="recent-grid"></div>
+        </section>
+
+        <section class="view" id="wardrobe" data-view="wardrobe">
+          <div class="topbar wardrobe-topbar">
+            <div><p class="eyebrow">MY WARDROBE</p><h1>我的衣橱</h1><p class="muted" id="wardrobe-summary">正在整理你的衣物</p></div>
+            <button class="primary-button" type="button" data-open-add><span>＋</span> 添加衣物</button>
+          </div>
+          <div class="filter-panel">
+            <div class="filter-title"><span>筛选</span><button class="text-button small" id="clear-filters" type="button">清除</button></div>
+            <div class="filter-group"><p>类别</p><div class="chips" id="category-filters"></div></div>
+            <div class="filter-group"><p>颜色</p><div class="chips" id="color-filters"></div></div>
+            <div class="filter-group"><p>风格</p><div class="chips" id="style-filters"></div></div>
+          </div>
+          <div class="selection-bar" id="selection-bar" hidden>
+            <span>已选 <b id="selected-count">0</b> 件</span>
+            <div><button class="text-button small" id="clear-selection" type="button">清除</button><button class="dark-button compact" id="send-to-studio" type="button">加入搭配工作台 →</button></div>
+          </div>
+          <div class="closet-grid" id="closet-grid"></div>
+          <div class="empty-state" id="empty-wardrobe" hidden><span>◌</span><h3>还没有符合条件的衣物</h3><p>试试调整筛选，或添加一件新的衣物。</p></div>
+        </section>
+
+        <section class="view" id="studio" data-view="studio">
+          <div class="topbar"><div><p class="eyebrow">OUTFIT STUDIO</p><h1>搭配工作台</h1><p class="muted">锁定你已经选中的衣物，补齐今天的穿搭。</p></div><button class="primary-button" type="button" data-go="wardrobe">从衣橱选择</button></div>
+          <div class="studio-layout">
+            <div class="studio-controls">
+              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>已选衣物 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">先从衣橱选择一件或多件衣物。</p></div>
+              <div class="control-card"><p class="eyebrow">MAKE IT YOURS</p><h2>今天想怎么穿？</h2><label>心情<select id="mood"><option>轻松自在</option><option>干练专注</option><option>想有一点仪式感</option><option>低调舒适</option></select></label><label>场景<select id="occasion"><option>日常</option><option>上班</option><option>约会</option><option>周末出行</option></select></label><label>风格关键词<input id="keywords" placeholder="例如：极简、有层次、适合降温" /></label><button class="dark-button full" id="generate-outfit" type="button">✦ 生成搭配建议</button><p class="ai-note">当前为本地标签模拟；接入云端后将使用 AI 生成。</p></div>
+            </div>
+            <div class="outfit-panel" id="outfit-panel"><div class="outfit-empty"><span>✦</span><h2>让衣服彼此相遇</h2><p>选择衣物，告诉我今天的心情与场景，我会基于标签给出一套完整建议。</p></div></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="add-modal" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" id="close-modal" type="button" aria-label="关闭">×</button>
+        <p class="eyebrow">NEW PIECE</p><h2 id="modal-title">添加一件衣物</h2>
+        <form id="add-form">
+          <label class="upload-zone" for="photo-input"><input id="photo-input" type="file" accept="image/*" /><span id="upload-preview">＋<small>从相册选择照片</small></span></label>
+          <div class="form-grid"><label>名称<input required name="name" placeholder="例如：奶油针织开衫" /></label><label>类别<select required name="category"><option value="上衣">上衣</option><option value="下装">下装</option><option value="连衣裙">连衣裙</option><option value="外套">外套</option><option value="鞋子">鞋子</option><option value="配饰">配饰</option></select></label><label>颜色<input required name="color" placeholder="例如：奶油白" /></label><label>风格<input required name="style" placeholder="例如：简约、通勤" /></label></div>
+          <label>关键词<input required name="keywords" placeholder="用顿号或逗号分开，例如：基础款，柔软，早秋" /></label>
+          <div class="modal-actions"><button class="text-button" id="cancel-modal" type="button">取消</button><button class="dark-button" type="submit">保存到衣橱</button></div>
+        </form>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

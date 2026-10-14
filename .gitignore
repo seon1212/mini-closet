@@ -20,3 +20,11 @@ env.ts
 .env.*
 !.env.example
 cloudfunctions/**/.env
+
+# The browser MVP is a prebuilt static site, so its distributable files belong in Git.
+!web/
+!web/dist/
+!web/dist/**
+
+# Locally generated Sites deployment archive
+web/*.tar.gz
