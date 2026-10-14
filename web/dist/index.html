@@ -11,56 +11,8 @@
   </head>
   <body>
     <div class="app-shell">
-      <aside class="sidebar" aria-label="主导航">
-        <a class="brand" href="#home" aria-label="衣橱 Capsule 首页">
-          <span class="brand-mark">C</span>
-          <span>衣橱 <b>Capsule</b></span>
-        </a>
-        <nav class="nav-list">
-          <a class="nav-item active" href="#home" data-nav="home"><span>◌</span> 今天</a>
-          <a class="nav-item" href="#wardrobe" data-nav="wardrobe"><span>▦</span> 我的衣橱 <em id="nav-count">0</em></a>
-          <a class="nav-item" href="#studio" data-nav="studio"><span>✦</span> 搭配工作台</a>
-        </nav>
-        <div class="sidebar-bottom">
-          <button class="text-button" id="reset-data" type="button">重置演示数据</button>
-          <p>数据仅保存在此浏览器</p>
-        </div>
-      </aside>
-
       <main>
-        <header class="mobile-header">
-          <a class="brand" href="#home"><span class="brand-mark">C</span><span>衣橱 Capsule</span></a>
-          <button class="icon-button" id="mobile-add" type="button" aria-label="添加衣物">＋</button>
-        </header>
-
-        <section class="view active" id="home" data-view="home">
-          <div class="topbar">
-            <div>
-              <p class="eyebrow" id="today-date">TODAY</p>
-              <h1>穿得像你自己。</h1>
-            </div>
-            <button class="primary-button" type="button" data-open-add><span>＋</span> 添加衣物</button>
-          </div>
-
-          <div class="hero-card">
-            <div class="hero-copy">
-              <p class="eyebrow">TODAY'S CAPSULE</p>
-              <h2>给今天留一点<br />从容的余地。</h2>
-              <p>先选几件你想穿的衣服，再让搭配工作台帮你完成剩下的部分。</p>
-              <button class="dark-button" type="button" data-go="wardrobe">从衣橱开始 <span>→</span></button>
-            </div>
-            <div class="hero-art" aria-hidden="true">
-              <div class="sun"></div><div class="hanger h1"></div><div class="hanger h2"></div><div class="hanger h3"></div>
-            </div>
-          </div>
-
-          <div class="section-head"><div><p class="eyebrow">YOUR WARDROBE</p><h2>衣橱概览</h2></div><button class="text-button" type="button" data-go="wardrobe">查看全部 →</button></div>
-          <div class="stat-grid" id="stat-grid"></div>
-          <div class="section-head recent-head"><div><p class="eyebrow">RECENTLY ADDED</p><h2>最近入库</h2></div></div>
-          <div class="mini-grid" id="recent-grid"></div>
-        </section>
-
-        <section class="view" id="wardrobe" data-view="wardrobe">
+        <section class="view active" id="wardrobe" data-view="wardrobe">
           <div class="topbar wardrobe-topbar">
             <div><p class="eyebrow">MY WARDROBE</p><h1>我的衣橱</h1><p class="muted" id="wardrobe-summary">正在整理你的衣物</p></div>
             <button class="primary-button" type="button" data-open-add><span>＋</span> 添加衣物</button>
@@ -83,13 +35,18 @@
           <div class="topbar"><div><p class="eyebrow">OUTFIT STUDIO</p><h1>搭配工作台</h1><p class="muted">锁定你已经选中的衣物，补齐今天的穿搭。</p></div><button class="primary-button" type="button" data-go="wardrobe">从衣橱选择</button></div>
           <div class="studio-layout">
             <div class="studio-controls">
-              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>已选衣物 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">先从衣橱选择一件或多件衣物。</p></div>
+              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>这一套 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">先到衣橱勾选一件或多件衣物，再回来组合成一套。</p><button class="secondary-button full" id="save-manual-outfit" type="button">保存当前组合</button><div class="saved-outfits" id="saved-outfits"></div></div>
               <div class="control-card"><p class="eyebrow">MAKE IT YOURS</p><h2>今天想怎么穿？</h2><label>心情<select id="mood"><option>轻松自在</option><option>干练专注</option><option>想有一点仪式感</option><option>低调舒适</option></select></label><label>场景<select id="occasion"><option>日常</option><option>上班</option><option>约会</option><option>周末出行</option></select></label><label>风格关键词<input id="keywords" placeholder="例如：极简、有层次、适合降温" /></label><button class="dark-button full" id="generate-outfit" type="button">✦ 生成搭配建议</button><p class="ai-note">当前为本地标签模拟；接入云端后将使用 AI 生成。</p></div>
             </div>
             <div class="outfit-panel" id="outfit-panel"><div class="outfit-empty"><span>✦</span><h2>让衣服彼此相遇</h2><p>选择衣物，告诉我今天的心情与场景，我会基于标签给出一套完整建议。</p></div></div>
           </div>
         </section>
       </main>
+      <nav class="bottom-nav" aria-label="底部导航">
+        <a class="bottom-nav-item active" href="#wardrobe" data-nav="wardrobe"><span class="nav-icon">▦</span><span>衣橱</span></a>
+        <button class="quick-add" type="button" data-nav="quick-add" aria-label="快速入库"><span>＋</span><small>快速入库</small></button>
+        <a class="bottom-nav-item" href="#studio" data-nav="studio"><span class="nav-icon">✦<b id="outfit-nav-count" hidden>0</b></span><span>搭配</span></a>
+      </nav>
     </div>
 
     <div class="modal-backdrop" id="add-modal" hidden>
