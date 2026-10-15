@@ -6,6 +6,12 @@ function isCloudEnabled(): boolean {
   return Boolean(app.globalData.cloudEnabled);
 }
 
+async function resolveCloudFileUrl(fileID: string): Promise<string> {
+  if (!fileID) return '';
+  const result = await wx.cloud.getTempFileURL({ fileList: [fileID] });
+  return result.fileList[0]?.tempFileURL || '';
+}
+
 export async function callCloud<T>(name: string, data: Record<string, unknown>): Promise<T> {
   const result = await wx.cloud.callFunction({ name, data });
   return result.result as T;
@@ -39,7 +45,21 @@ export async function createClothing(item: Clothing, localImagePath?: string) {
     upsertClothing({ ...item, imagePath: localImagePath, userId: 'local' });
     return { ...item, imagePath: localImagePath };
   }
-  const upload = await wx.cloud.uploadFile({ cloudPath: `clothes/${item.id}.jpg`, filePath: localImagePath! });
-  const result = await callCloud<{ item: Clothing }>('createClothing', { item, imageFileId: upload.fileID });
-  return result.item;
+  const upload = await wx.cloud.uploadFile({ cloudPath: `clothes/original/${item.id}.jpg`, filePath: localImagePath! });
+  let processedImageFileId = '';
+  try {
+    const matting = await callCloud<{ status: string; processedImageFileId?: string }>('mattingClothingImage', { originalFileId: upload.fileID, clothingId: item.id });
+    processedImageFileId = matting.processedImageFileId || '';
+  } catch (error) {
+    // 入库优先保证可用；抠图配置或服务暂不可用时继续使用原图。
+    console.warn('商品抠图失败，已回退到原图', error);
+  }
+  const result = await callCloud<{ item: Clothing }>('createClothing', {
+    item: { ...item, processedImageFileId: processedImageFileId || undefined },
+    imageFileId: upload.fileID
+  });
+  const processedImagePath = processedImageFileId ? await resolveCloudFileUrl(processedImageFileId) : undefined;
+  const cachedItem = { ...result.item, imagePath: localImagePath, processedImagePath };
+  upsertClothing(cachedItem);
+  return cachedItem;
 }

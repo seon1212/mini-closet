@@ -28,7 +28,19 @@ AI_TIMEOUT_MS=20000
 
 ## 图片抠图
 
-当前上传流程会保存原图；`mattingClothingImage` 是降级接口，未开通腾讯云数据万象时会继续使用原图。要启用透明底图，需要额外开通商品抠图、配置 COS/数据万象权限，并将结果文件 ID 写入 `processedImageFileId`。
+入库流程会保存原图到 CloudBase 云存储，再由 `mattingClothingImage` 云函数复制原图到 COS，调用数据万象商品抠图，最后把透明 PNG 回传至 CloudBase 云存储。衣物记录会写入 `processedImageFileId`，页面会优先展示该透明图。
+
+在 `mattingClothingImage` 云函数中设置以下环境变量。密钥只保存在云端，不要写入 `env.ts` 或 Git：
+
+```text
+MATTING_ENABLED=true
+COS_BUCKET=你的存储桶名称-APPID
+COS_REGION=存储桶地域，例如 ap-guangzhou
+COS_SECRET_ID=子账号密钥 ID
+COS_SECRET_KEY=子账号密钥 Key
+```
+
+创建 COS 存储桶后，在数据万象控制台绑定该存储桶并开通商品抠图。为该子账号授予该存储桶的 `cos:PutObject`、`cos:GetObject` 权限；商品抠图上传处理使用 `cos:PutObject` 权限。部署云函数前需在其目录执行 `npm install`，以安装 COS SDK。
 
 ## 验证顺序
 
