@@ -36,7 +36,7 @@ function renderChips(id,values,current,key){$(id).innerHTML=[['','全部'],...va
 function filtered(){return state.clothes.filter(piece=>Object.entries(state.filters).every(([key,value])=>!value||(Array.isArray(piece[key])?piece[key].includes(value):piece[key]===value)));}
 function renderWardrobe(){
   renderChips('#category-filters',uniq('category'),state.filters.category,'category'); renderChips('#color-filters',uniq('color'),state.filters.color,'color'); renderChips('#style-filters',uniq('style'),state.filters.style,'style');
-  const items=filtered(); $('#wardrobe-summary').textContent=`共 ${state.clothes.length} 件衣物 · 当前显示 ${items.length} 件`;
+  const items=filtered();
   $('#closet-grid').innerHTML=items.map(piece=>`<article class="clothing-card ${state.selected.includes(piece.id)?'selected':''}" data-piece="${piece.id}" tabindex="0" role="button" aria-pressed="${state.selected.includes(piece.id)}"><div class="clothing-image" style="background-image:url('${getDisplayImage(piece)}')"></div><span class="select-tick">${state.selected.includes(piece.id)?'✓':''}</span><div class="card-body"><p>${esc(piece.name)}</p><small>${esc(piece.category)} · ${esc(piece.color)}</small></div></article>`).join('');
   $('#empty-wardrobe').hidden=items.length>0; $('#selection-bar').hidden=state.selected.length===0; $('#selected-count').textContent=state.selected.length;
 }
