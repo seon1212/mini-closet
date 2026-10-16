@@ -27,6 +27,7 @@
             <span>已选 <b id="selected-count">0</b> 件</span>
             <div><button class="text-button small" id="clear-selection" type="button">清除</button><button class="dark-button compact" id="send-to-studio" type="button">加入搭配工作台 →</button></div>
           </div>
+          <div class="wardrobe-count" aria-live="polite"><span>衣物数量</span><b id="wardrobe-count">0</b><small id="wardrobe-filter-count"></small></div>
           <div class="closet-grid" id="closet-grid"></div>
           <div class="empty-state" id="empty-wardrobe" hidden><span>◌</span><h3>还没有符合条件的衣物</h3><p>试试调整筛选，或添加一件新的衣物。</p></div>
         </section>
@@ -35,7 +36,7 @@
           <div class="topbar"><div><p class="eyebrow">OUTFIT STUDIO</p><h1>搭配工作台</h1></div><button class="primary-button" type="button" data-go="wardrobe">从衣橱选择</button></div>
           <div class="studio-layout">
             <div class="studio-controls">
-              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>这一套 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">先到衣橱勾选一件或多件衣物，再回来组合成一套。</p><button class="secondary-button full" id="save-manual-outfit" type="button">保存当前组合</button><div class="saved-outfits" id="saved-outfits"></div></div>
+              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>这一套 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">可从衣橱锁定单品，也可直接生成，让 AI 从衣橱里挑选。</p><button class="secondary-button full" id="save-manual-outfit" type="button">保存当前组合</button><div class="saved-outfits" id="saved-outfits"></div></div>
               <div class="control-card"><p class="eyebrow">MAKE IT YOURS</p><h2>今天想怎么穿？</h2><label>心情<select id="mood"><option>轻松自在</option><option>干练专注</option><option>想有一点仪式感</option><option>低调舒适</option></select></label><label>场景<select id="occasion"><option>日常</option><option>上班</option><option>约会</option><option>周末出行</option></select></label><label>风格关键词<input id="keywords" placeholder="例如：极简、有层次、适合降温" /></label><button class="dark-button full" id="generate-outfit" type="button">✦ 生成搭配建议</button><p class="ai-note">当前为本地标签模拟；接入云端后将使用 AI 生成。</p><div class="outfit-advice" id="outfit-advice"><div class="outfit-empty"><span>✦</span><h2>让衣服彼此相遇</h2><p>选择衣物，告诉我今天的心情与场景，我会基于标签给出一套完整建议。</p></div></div></div>
             </div>
             <div class="outfit-panel">
