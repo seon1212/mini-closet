@@ -17,19 +17,26 @@
             <div><p class="eyebrow">MY WARDROBE</p><h1>我的衣橱</h1></div>
             <button class="primary-button" type="button" data-open-add><span>＋</span> 添加衣物</button>
           </div>
-          <div class="filter-panel">
-            <div class="filter-title"><span>筛选</span><button class="text-button small" id="clear-filters" type="button">清除</button></div>
-            <div class="filter-group"><p>类别</p><div class="chips" id="category-filters"></div></div>
-            <div class="filter-group"><p>颜色</p><div class="chips" id="color-filters"></div></div>
-            <div class="filter-group"><p>风格</p><div class="chips" id="style-filters"></div></div>
-          </div>
-          <div class="selection-bar" id="selection-bar" hidden>
-            <span>已选 <b id="selected-count">0</b> 件</span>
-            <div><button class="text-button small" id="clear-selection" type="button">清除</button><button class="dark-button compact" id="send-to-studio" type="button">加入搭配工作台 →</button></div>
-          </div>
-          <div class="wardrobe-count" aria-live="polite"><span>衣物数量</span><b id="wardrobe-count">0</b><small id="wardrobe-filter-count"></small></div>
-          <div class="closet-grid" id="closet-grid"></div>
-          <div class="empty-state" id="empty-wardrobe" hidden><span>◌</span><h3>还没有符合条件的衣物</h3><p>试试调整筛选，或添加一件新的衣物。</p></div>
+          <section class="closet-home" id="closet-home">
+            <div class="wardrobe-count" aria-live="polite"><span>衣物数量</span><b id="wardrobe-count">0</b><small id="wardrobe-filter-count"></small></div>
+            <div class="wardrobe-shelves" id="wardrobe-shelves"></div>
+            <button class="add-folder" id="add-folder" type="button"><span>＋</span> 新建分类</button>
+          </section>
+          <section class="closet-detail" id="closet-detail" hidden>
+            <div class="detail-head"><button class="back-button" id="close-folder" type="button">← 衣橱</button><h2 id="folder-title">全部衣物</h2></div>
+            <div class="filter-panel">
+              <div class="filter-title"><span>筛选</span><button class="text-button small" id="clear-filters" type="button">清除</button></div>
+              <div class="filter-group"><p>类别</p><div class="chips" id="category-filters"></div></div>
+              <div class="filter-group"><p>颜色</p><div class="chips" id="color-filters"></div></div>
+              <div class="filter-group"><p>风格</p><div class="chips" id="style-filters"></div></div>
+            </div>
+            <div class="selection-bar" id="selection-bar" hidden>
+              <span>已选 <b id="selected-count">0</b> 件</span>
+              <div><button class="text-button small" id="clear-selection" type="button">清除</button><button class="dark-button compact" id="send-to-studio" type="button">加入搭配工作台 →</button></div>
+            </div>
+            <div class="closet-grid" id="closet-grid"></div>
+            <div class="empty-state" id="empty-wardrobe" hidden><span>◌</span><h3>这里还没有衣物</h3><p>添加衣物或调整筛选条件。</p></div>
+          </section>
         </section>
 
         <section class="view" id="studio" data-view="studio">
@@ -67,7 +74,8 @@
         <p class="eyebrow">NEW PIECE</p><h2 id="modal-title">添加一件衣物</h2>
         <form id="add-form">
           <label class="upload-zone" for="photo-input"><input id="photo-input" type="file" accept="image/*" /><span id="upload-preview">＋<small>从相册选择照片</small></span></label>
-          <div class="form-grid"><label>名称<input required name="name" placeholder="例如：奶油针织开衫" /></label><label>类别<select required name="category"><option value="上衣">上衣</option><option value="下装">下装</option><option value="连衣裙">连衣裙</option><option value="外套">外套</option><option value="鞋子">鞋子</option><option value="配饰">配饰</option></select></label><label>颜色<input required name="color" placeholder="例如：奶油白" /></label><label>风格<input required name="style" placeholder="例如：简约、通勤" /></label></div>
+          <div class="form-grid"><label>名称<input required name="name" placeholder="例如：奶油针织开衫" /></label><label>类别<select required name="category"><option value="上衣">上衣</option><option value="下装">下装</option><option value="连衣裙">连衣裙</option><option value="外套">外套</option><option value="鞋子">鞋子</option><option value="配饰">配饰</option></select></label><label>季节<select required name="season"><option value="春">春</option><option value="夏">夏</option><option value="秋" selected>秋</option><option value="冬">冬</option></select></label><label>颜色<input required name="color" placeholder="例如：冷白色" /></label><label>风格<input required name="style" placeholder="例如：简约、通勤" /></label></div>
+          <label>收纳分类<select name="folder" id="folder-input"><option value="">未分类</option></select></label>
           <label>关键词<input required name="keywords" placeholder="用顿号或逗号分开，例如：基础款，柔软，早秋" /></label>
           <div class="modal-actions"><button class="text-button" id="cancel-modal" type="button">取消</button><button class="dark-button" type="submit">保存到衣橱</button></div>
         </form>
