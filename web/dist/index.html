@@ -36,7 +36,7 @@
           <div class="topbar"><div><p class="eyebrow">OUTFIT STUDIO</p><h1>搭配工作台</h1></div><button class="primary-button" type="button" data-go="wardrobe">从衣橱选择</button></div>
           <div class="studio-layout">
             <div class="studio-controls">
-              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>这一套 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">可从衣橱锁定单品，也可直接生成，让 AI 从衣橱里挑选。</p><button class="secondary-button full" id="save-manual-outfit" type="button">保存当前组合</button><div class="saved-outfits" id="saved-outfits"></div></div>
+              <div class="control-card"><p class="eyebrow">YOUR SELECTION</p><h2>这一套 <span id="studio-count">0</span></h2><div class="selected-list" id="studio-selection"></div><p class="selection-help" id="selection-help">可从衣橱锁定单品，也可直接生成，让 AI 从衣橱里挑选。</p><button class="secondary-button full" id="save-manual-outfit" type="button">保存当前组合</button><div class="saved-outfits" id="saved-outfits"></div><button class="text-button saved-outfits-link" id="open-ootd" type="button">查看全部 OOTD →</button></div>
               <div class="control-card"><p class="eyebrow">MAKE IT YOURS</p><h2>今天想怎么穿？</h2><label>心情<select id="mood"><option>轻松自在</option><option>干练专注</option><option>想有一点仪式感</option><option>低调舒适</option></select></label><label>场景<select id="occasion"><option>日常</option><option>上班</option><option>约会</option><option>周末出行</option></select></label><label>风格关键词<input id="keywords" placeholder="例如：极简、有层次、适合降温" /></label><button class="dark-button full" id="generate-outfit" type="button">✦ 生成搭配建议</button><p class="ai-note">当前为本地标签模拟；接入云端后将使用 AI 生成。</p><div class="outfit-advice" id="outfit-advice"><div class="outfit-empty"><span>✦</span><h2>让衣服彼此相遇</h2><p>选择衣物，告诉我今天的心情与场景，我会基于标签给出一套完整建议。</p></div></div></div>
             </div>
             <div class="outfit-panel">
@@ -46,9 +46,16 @@
             </div>
           </div>
         </section>
+
+        <section class="view" id="ootd" data-view="ootd">
+          <div class="topbar"><div><p class="eyebrow">OUTFIT ARCHIVE</p><h1>OOTD</h1></div><button class="primary-button" type="button" data-go="studio">去搭配</button></div>
+          <div class="ootd-grid" id="ootd-grid"></div>
+          <div class="empty-state" id="empty-ootd" hidden><span>◌</span><h3>还没有保存的搭配</h3><p>在搭配工作台完成组合后，点击“保存当前组合”。</p></div>
+        </section>
       </main>
       <nav class="bottom-nav" aria-label="底部导航">
         <a class="bottom-nav-item active" href="#wardrobe" data-nav="wardrobe"><span class="nav-icon">▦</span><span>衣橱</span></a>
+        <a class="bottom-nav-item" href="#ootd" data-nav="ootd"><span class="nav-icon">◫</span><span>OOTD</span></a>
         <button class="quick-add" type="button" data-nav="quick-add" aria-label="快速入库"><span>＋</span><small>快速入库</small></button>
         <a class="bottom-nav-item" href="#studio" data-nav="studio"><span class="nav-icon">✦<b id="outfit-nav-count" hidden>0</b></span><span>搭配</span></a>
       </nav>
